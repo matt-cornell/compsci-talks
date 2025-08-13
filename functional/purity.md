@@ -55,7 +55,7 @@ int add(int a, int b) {
 From your perspective, you have no way of knowing that this was going to print, and maybe you didn't want it to do that. Let's try this in Haskell:
 
 ```hs
-import Text.Printf;
+import Text.Printf
 
 add :: Int -> Int -> Int -- don't worry about the syntax too much, but this is a declaration with the same signature as what we saw in C
 add a b =
@@ -76,7 +76,7 @@ This doesn't really look very good, and those ignored values should be a sign th
 So what if we wanted to have our print statements, and we wanted them to actually run? Well in that case, we could do this:
 
 ```hs
-import Text.Printf;
+import Text.Printf
 
 add :: Int -> Int -> IO Int -- This time, we're returning an IO Int, meaning that we have some effectful operation that'll give an Int after it runs
 add a b =
@@ -108,7 +108,7 @@ This second form almost looks like procedural code! Haskell's `do` notation can 
 This is a bad idea, since most languages that are built around purity expect you to not try to circumvent it and therefore perform optimizations based on it. GHC, the most popular Haskell compiler, does optimizations with inlining and common subexpression elimination (CSE) that mean that your function could be called more or fewer times than what you wrote. However, there's still an escape hatch provided:
 
 ```hs
-import System.IO.Unsafe;
+import System.IO.Unsafe
 
 add :: Int -> Int -> Int
 add a b = (unsafePerformIO $ putStrLn "please don't do this") `seq` (a + b) -- Haskell is lazily evaluated, so you need to force evaluation with seq
@@ -120,4 +120,4 @@ While purity is a nice tool to reason about code, it's not necessary for all fun
 
 ---
 
-[Functional Root](index.md) | [Previous Article (So what is functional programming, anyway?)](purity.md)
+[Functional Root](index.md) | [Previous Article (So what is functional programming, anyway?)](intro.md) | [Next Article (Closures & Currying)](closures.md)
