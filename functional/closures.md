@@ -12,7 +12,7 @@ An associated pattern often (mistakenly) called a closure is a lambda expression
 
 ```hs
 isEven :: Int -> Bool
-isEven v = v % 2 == 0
+isEven v = v `mod` 2 == 0
 
 -- somewhere in another function
 filter isEven [1, 2, 3, 4, 5]
@@ -21,7 +21,7 @@ filter isEven [1, 2, 3, 4, 5]
 It can just be defined inline:
 
 ```hs
-filter (\v -> v % 2 == 0) [1, 2, 3, 4, 5]
+filter (\v -> v `mod` 2 == 0) [1, 2, 3, 4, 5]
 ```
 
 ## Currying
@@ -82,10 +82,10 @@ let f = add 2 in
 Going back to the [Closures](#closures) section, we had two ways of writing a check to see if a value is even, but with partial application and function composition, we can write a pointfree solution:
 
 ```hs
-filter ((== 0) . (% 2)) [1, 2, 3, 4, 5]
+filter ((== 0) . (`mod` 2)) [1, 2, 3, 4, 5]
 ```
 
-Binary operators can be partially applied like this to create functions that take this missing side, e.g. `(% 2)` is the same as `\x -> x % 2`. Likewise, `(== 0)` is the same as `\x -> x == 0`. The `.` in the middle is a compositional operator, which creates a function which applies the first function to the result of the second function.
+Binary operators can be partially applied like this to create functions that take this missing side, e.g. `(mod 2)` (I can't use backticks in inline code) is the same as `\x -> x mod 2`. Likewise, `(== 0)` is the same as `\x -> x == 0`. The `.` in the middle is a compositional operator, which creates a function which applies the first function to the result of the second function.
 
 As a more complex example, take this function:
 
